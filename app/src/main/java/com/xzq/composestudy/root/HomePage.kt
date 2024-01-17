@@ -7,10 +7,13 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.IconButton
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -25,14 +28,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.xzq.composestudy.data.iconList
 import com.xzq.composestudy.data.navList
 import kotlinx.coroutines.launch
-import androidx.compose.material.*
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TopAppBarDefaults
-import com.xzq.composestudy.data.iconList
 
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
@@ -50,7 +48,7 @@ fun HomePage() {
     val systemUiController = rememberSystemUiController().apply {
         setSystemBarsColor(
             color = Color(0xffEDEDED),
-            darkIcons = true,
+            darkIcons = false,
         )
     }
 
@@ -88,7 +86,7 @@ fun HomePage() {
             ) {
                 BottomAppBar(
                     backgroundColor = Color(0xffEDEDED),
-                 contentColor = Color(ContextCompat.getColor(context, if (selectIndex > 1) R.color.black else R.color.nav_bg)),
+                    contentColor = Color(ContextCompat.getColor(context, if (selectIndex > 1) R.color.black else R.color.nav_bg)),
                 ) {
                     navList.forEachIndexed { index, str ->
                         Box(
@@ -140,6 +138,7 @@ fun HomePage() {
                             darkIcons = true,
                         )
                     })
+
                     1 -> rootDiscoverPage(innerPadding)
                     2 -> rootFriendPage(innerPadding)
                     3 -> rootMinePage(innerPadding)
