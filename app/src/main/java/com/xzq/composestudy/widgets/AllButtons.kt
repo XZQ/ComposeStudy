@@ -1,82 +1,91 @@
 package com.xzq.composestudy.widgets
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.*
+import androidx.compose.material.IconToggleButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.xzq.composestudy.ui.theme.Typography
 import com.xzq.composestudy.ui.theme.purple
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
+// https://blog.csdn.net/qq_31339141/article/details/124227120
+// https://zhuanlan.zhihu.com/p/619110976
+// https://blog.csdn.net/Bluechalk/article/details/128064145
+// https://www.cnblogs.com/guanxinjing/p/17603239.html
+@Composable
+fun PreviewButtons() {
+    Column {
+        AllButtons()
+    }
+}
 
 @Composable
 fun AllButtons() {
-    Text(text = "Buttons", style = TextStyle(fontSize = 24.sp), modifier = Modifier.padding(8.dp))
+    val context1 = LocalContext.current
 
-    Row {
-        Button(onClick = {}, modifier = Modifier.padding(8.dp)) {
+    Text(text = "Button", style = Typography.h5, modifier = Modifier.padding(2.dp))
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Button(onClick = { }, modifier = Modifier.padding(2.dp)) {
             Text(text = "Main Button")
         }
-        TextButton(onClick = {}, modifier = Modifier.padding(8.dp)) {
-            Text(text = "Text Button")
-        }
-        TextButton(onClick = {}, modifier = Modifier.padding(8.dp), enabled = false) {
-            Text(text = "Text Disabled")
-        }
-    }
-    Row {
-        Button(onClick = {}, modifier = Modifier.padding(8.dp), enabled = false) {
+        Button(onClick = {}, modifier = Modifier.padding(2.dp), enabled = false) {
             Text(text = "Disabled")
         }
         Button(
-            onClick = {},
-            modifier = Modifier.padding(8.dp),
+            onClick = {}, modifier = Modifier.padding(2.dp),
             elevation = ButtonDefaults.buttonElevation()
         ) {
             Text(text = "Flat")
         }
+    }
+    /****************************************/
+    Row(verticalAlignment = Alignment.CenterVertically) {
         Button(
             onClick = {},
-            modifier = Modifier.padding(8.dp),
-            shape = RoundedCornerShape(12.dp)
+            modifier = Modifier.padding(2.dp),
+            shape = RoundedCornerShape(10.dp)
         ) {
             Text(text = "Rounded")
         }
-    }
-    Row {
-        OutlinedButton(onClick = {}, modifier = Modifier.padding(8.dp)) {
-            Text(text = "Outline")
-        }
-        Button(onClick = {}, modifier = Modifier.padding(8.dp)) {
+        Button(onClick = {}, modifier = Modifier.padding(2.dp)) {
             Row {
                 Icon(
                     imageVector = Icons.Default.FavoriteBorder,
                     contentDescription = null,
-                    modifier = Modifier.padding(end = 4.dp)
+                    modifier = Modifier.padding(end = 2.dp)
                 )
                 Text(text = "Icon Button")
             }
         }
-        Button(onClick = {}, modifier = Modifier.padding(8.dp)) {
+        Button(onClick = {}, modifier = Modifier.padding(2.dp)) {
             Text(text = "Icon Button")
             Icon(
                 imageVector = Icons.Default.FavoriteBorder,
@@ -85,26 +94,58 @@ fun AllButtons() {
             )
         }
     }
-    //custom background buttons
+    /****************************************/
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        TextButton(onClick = { }, modifier = Modifier.padding(2.dp)) {
+            Text(text = "TextButton")
+        }
+        TextButton(onClick = { }, modifier = Modifier.padding(2.dp), enabled = false) {
+            Text(text = "Text Disabled")
+        }
+        TextButton(onClick = { }) {
+            Text(text = "点击")
+        }
+    }
+    /****************************************/
     val outlineButtonColor = ButtonDefaults.outlinedButtonColors(
         contentColor = Color.Cyan,
     )
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        OutlinedButton(
+            colors = outlineButtonColor,
+            onClick = {},
+            modifier = Modifier.padding(2.dp)
+        ) {
+            Text(text = "Outline colors")
+        }
+        OutlinedButton(onClick = {}, modifier = Modifier.padding(8.dp)) {
+            Text(text = "Outline")
+        }
+        OutlinedButton(onClick = { }) {
+            Text(text = "点击", color = Color.Red)
+        }
+    }
+    /****************************************/
+    val isChecked = remember { mutableStateOf(true) }
     val mainButtonColor = ButtonDefaults.buttonColors(
         containerColor = purple,
         contentColor = MaterialTheme.colorScheme.surface
     )
-    Row {
-        OutlinedButton(
-            colors = outlineButtonColor,
-            onClick = {},
-            modifier = Modifier.padding(8.dp)
-        ) {
-            Text(text = "Outline colors")
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        IconToggleButton(checked = isChecked.value, onCheckedChange = {
+            isChecked.value = it
+        }) {
+            Icon(
+                imageVector = if (isChecked.value) Icons.Default.CheckCircle else Icons.Default.Check,
+                contentDescription = null,
+                tint = Color.Cyan
+            )
         }
-        Button(colors = mainButtonColor, onClick = {}, modifier = Modifier.padding(8.dp)) {
+        Button(colors = mainButtonColor, onClick = {}, modifier = Modifier.padding(2.dp)) {
             Text(text = "Custom colors")
         }
     }
+    /****************************************/
     Row {
         val horizontalGradient = Brush.horizontalGradient(
             colors = listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.inversePrimary),
@@ -137,6 +178,55 @@ fun AllButtons() {
                 .padding(12.dp)
         )
     }
+    /****************************************/
+    val isEnabled = remember { mutableStateOf(true) }
+    val buttonColors = ButtonDefaults.buttonColors(
+        containerColor = Color.Red,
+        contentColor = Color.Yellow,
+        disabledContainerColor = Color.DarkGray,
+        disabledContentColor = Color.Black
+    )
+
+    //点击状态来源
+    val interactionSource = remember { MutableInteractionSource() }
+    //interactionSource.collectIsPressedAsState() 为按下状态
+    //interactionSource.collectIsFocusedAsState() 为焦点选中状态
+    //interactionSource.collectIsHoveredAsState() 为鼠标悬停状态
+    //interactionSource.collectIsDraggedAsState() 为拖动状态
+    val buttonColors1 = if (interactionSource.collectIsPressedAsState().value) {
+        ButtonDefaults.buttonColors(
+            containerColor = Color.Gray,
+            contentColor = Color.White,
+        )
+    } else {
+        ButtonDefaults.buttonColors(
+            containerColor = Color.Cyan,
+            contentColor = Color.Black,
+        )
+    }
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Button(
+            onClick = {
+                Toast.makeText(context1, "点击按钮", Toast.LENGTH_SHORT).show()
+            },
+            enabled = isEnabled.value,
+            colors = buttonColors,
+            border = BorderStroke(2.dp, Brush.linearGradient(listOf(Color(0xFF005599), Color(0xFF3FFFED)))),
+            elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp)//阴影
+        ) {
+            Text(text = "点击")
+        }
+        Button(
+            onClick = { isEnabled.value = !isEnabled.value },
+            border = BorderStroke(1.dp, Color.Green),
+            colors = buttonColors1,
+            interactionSource = interactionSource
+        ) {
+            Text(text = "是否可用")
+        }
+    }
+}
+
 
 /*    val swipeButtonState = remember {
         mutableStateOf(SwipeButtonState.INITIAL)
@@ -172,12 +262,5 @@ fun AllButtons() {
     ) {
         Text(text = "Swipe", style = Typography.body1)
     }*/
-}
 
-@Preview
-@Composable
-fun PreviewButtons() {
-    Column {
-        AllButtons()
-    }
-}
+

@@ -1,4 +1,4 @@
-package com.xzq.composestudy.ui
+package com.xzq.composestudy.widgets
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.xzq.composestudy.ui
+package com.xzq.composestudy.widgets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
