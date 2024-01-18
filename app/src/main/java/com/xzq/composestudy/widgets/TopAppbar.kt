@@ -1,4 +1,4 @@
-package com.xzq.composestudy.widget
+package com.xzq.composestudy.widgets
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
 @Composable
-fun topBar( ) = TopAppBar(
+fun topBar() = TopAppBar(
 
     title = {
         Text(

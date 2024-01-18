@@ -1,4 +1,4 @@
-package com.xzq.composestudy.viewmodel
+package com.xzq.composestudy.main
 
 import androidx.lifecycle.ViewModel
 

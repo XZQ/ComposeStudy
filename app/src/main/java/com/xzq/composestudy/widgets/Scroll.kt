@@ -1,4 +1,4 @@
-package com.xzq.composestudy.widget
+package com.xzq.composestudy.widgets
 
 import android.provider.MediaStore
 import androidx.compose.foundation.horizontalScroll

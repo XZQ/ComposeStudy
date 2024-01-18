@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.xzq.composestudy.viewmodel.MainViewModel
-import com.xzq.composestudy.widget.nestScroll
+import com.xzq.composestudy.main.MainViewModel
+import com.xzq.composestudy.widgets.nestScroll
 
 @Composable
 fun rootMainPage(

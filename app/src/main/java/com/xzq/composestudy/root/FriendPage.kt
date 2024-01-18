@@ -24,13 +24,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import com.xzq.composestudy.data.FriendItem
-import com.xzq.composestudy.widget.ActionTitle
+import com.xzq.composestudy.root.friend.FriendItem
+import com.xzq.composestudy.widgets.ActionTitle
 import kotlin.math.roundToInt
 
 @Composable
@@ -62,7 +61,8 @@ fun rootFriendPage(innerPadding: PaddingValues) {
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
-                ActionTitle(FriendItem(
+                ActionTitle(
+                    FriendItem(
                     "直播",
                     R.mipmap.icon_live,
                 ), context, false,
@@ -70,14 +70,16 @@ fun rootFriendPage(innerPadding: PaddingValues) {
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
-                ActionTitle(FriendItem(
+                ActionTitle(
+                    FriendItem(
                     "扫一扫",
                     R.mipmap.icon_scan,
                 ), context, true,
                     onClick = {})
             }
             item {
-                ActionTitle(FriendItem(
+                ActionTitle(
+                    FriendItem(
                     "摇一摇",
                     R.mipmap.icon_yao,
                 ), context, true,
@@ -85,14 +87,16 @@ fun rootFriendPage(innerPadding: PaddingValues) {
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
-                ActionTitle(FriendItem(
+                ActionTitle(
+                    FriendItem(
                     "看一看",
                     R.mipmap.icon_look,
                 ), context, true,
                     onClick = {})
             }
             item {
-                ActionTitle(FriendItem(
+                ActionTitle(
+                    FriendItem(
                     "搜一搜",
                     R.mipmap.icon_search,
                 ), context, true,
@@ -100,7 +104,8 @@ fun rootFriendPage(innerPadding: PaddingValues) {
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
-                ActionTitle(FriendItem(
+                ActionTitle(
+                    FriendItem(
                     "附近",
                     R.mipmap.icon_near,
                 ), context, false,
@@ -108,7 +113,8 @@ fun rootFriendPage(innerPadding: PaddingValues) {
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
-                ActionTitle(FriendItem(
+                ActionTitle(
+                    FriendItem(
                     "小程序",
                     R.mipmap.icon_applet,
                 ), context, false,

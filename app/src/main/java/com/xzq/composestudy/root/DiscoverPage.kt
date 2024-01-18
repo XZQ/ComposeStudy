@@ -1,20 +1,32 @@
 package com.xzq.composestudy
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.xzq.composestudy.widgets.AllButtons
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rootDiscoverPage(innerPadding: PaddingValues) {
-    Column(
-        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center
+    Scaffold(
+        modifier = Modifier.padding(innerPadding),
+        topBar = {},
+        content = { value ->
+            WidgetScreenContent(Modifier.padding(value))
+        }
+    )
+}
+
+@Composable
+fun WidgetScreenContent(modifier: Modifier = Modifier) {
+    LazyColumn(
+        state = rememberLazyListState(),
+        modifier = modifier
     ) {
-        Text(text = "DiscoverPage", modifier = Modifier.align(Alignment.CenterHorizontally))
+        item { AllButtons() }
     }
 }

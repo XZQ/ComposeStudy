@@ -23,7 +23,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.xzq.composestudy.data.iconList
 import com.xzq.composestudy.data.navList
 import com.xzq.composestudy.ui.theme.ComposeStudyTheme
-import com.xzq.composestudy.widget.topBar
+import com.xzq.composestudy.widgets.topBar
 import kotlinx.coroutines.launch
 
 /**
@@ -76,7 +76,7 @@ private fun rootCompose() {
         ) {
             Scaffold(
                 topBar = { topBar() },
-                drawerContent = { drawerContent() },
+                drawerContent = { },
                 bottomBar = {
                     /*  BottomAppBar(
                           modifier = Modifier.height(100.dp)

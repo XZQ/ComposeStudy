@@ -1,4 +1,4 @@
-package com.xzq.composestudy.widget
+package com.xzq.composestudy.widgets
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -21,7 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.coil.rememberCoilPainter
-import com.xzq.composestudy.data.FriendItem
+import com.xzq.composestudy.root.friend.FriendItem
 import com.xzq.composestudy.ui.theme.black_10
 
 @Composable

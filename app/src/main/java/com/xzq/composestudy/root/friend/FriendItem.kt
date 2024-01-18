@@ -1,4 +1,4 @@
-package com.xzq.composestudy.data
+package com.xzq.composestudy.root.friend
 
 data class FriendItem(
     val title: String,
