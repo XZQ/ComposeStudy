@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ComposeStudy</string>
+    <string name="cd_back">Back</string>
+    <string name="spotify_nav_home">Home</string>
+    <string name="spotify_nav_search">Search</string>
+    <string name="spotify_nav_library">Your Library</string>
 </resources>

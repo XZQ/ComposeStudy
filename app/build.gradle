@@ -68,7 +68,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
-    implementation "com.google.accompanist:accompanist-coil:0.11.0"
+    implementation 'com.google.accompanist:accompanist-coil:0.15.0'
     implementation "com.google.accompanist:accompanist-insets:0.17.0"
     implementation "com.google.accompanist:accompanist-insets-ui:0.15.0"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"

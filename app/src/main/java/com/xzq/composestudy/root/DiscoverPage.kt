@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.xzq.composestudy.widgets.AllButtons
+import com.xzq.composestudy.widgets.Chips
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,5 +29,6 @@ fun WidgetScreenContent(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         item { AllButtons() }
+        item { Chips() }
     }
 }
