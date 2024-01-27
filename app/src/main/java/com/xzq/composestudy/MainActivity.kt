@@ -3,11 +3,27 @@ package com.xzq.composestudy
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,8 +36,16 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.xzq.composestudy.data.iconList
-import com.xzq.composestudy.data.navList
+import com.xzq.composestudy.cupcake.CupcakeApp
+import com.xzq.composestudy.cupcake.ui.StartOrderPreview
+import com.xzq.composestudy.cupcake.ui.theme.CupcakeTheme
+import com.xzq.composestudy.main.iconList
+import com.xzq.composestudy.main.navList
+import com.xzq.composestudy.rally.Overview
+import com.xzq.composestudy.rally.RallyDestination
+import com.xzq.composestudy.rally.rallyTabRowScreens
+import com.xzq.composestudy.rally.ui.components.RallyTabRow
+import com.xzq.composestudy.rally.ui.theme.RallyTheme
 import com.xzq.composestudy.ui.theme.ComposeStudyTheme
 import com.xzq.composestudy.widgets.topBar
 import kotlinx.coroutines.launch
@@ -35,6 +59,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {
             ComposeHomeUI()
@@ -47,6 +72,36 @@ fun ComposeHomeUI() {
     ProvideWindowInsets {
         ComposeStudyTheme {
             HomePage()
+        }
+    }
+}
+
+@Composable
+fun ComposeCupcakeThemeUI() {
+    ProvideWindowInsets {
+        StartOrderPreview()
+    }
+}
+
+
+@Composable
+fun RallyApp() {
+    ProvideWindowInsets {
+        RallyTheme {
+            var currentScreen: RallyDestination by remember { mutableStateOf(Overview) }
+            Scaffold(
+                topBar = {
+                    RallyTabRow(
+                        allScreens = rallyTabRowScreens,
+                        onTabSelected = { screen -> currentScreen = screen },
+                        currentScreen = currentScreen
+                    )
+                }
+            ) { innerPadding ->
+                Box(Modifier.padding(innerPadding)) {
+                    currentScreen.screen()
+                }
+            }
         }
     }
 }

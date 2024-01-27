@@ -28,8 +28,8 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.xzq.composestudy.data.iconList
-import com.xzq.composestudy.data.navList
+import com.xzq.composestudy.main.iconList
+import com.xzq.composestudy.main.navList
 import kotlinx.coroutines.launch
 
 
@@ -39,7 +39,6 @@ import kotlinx.coroutines.launch
 fun HomePage() {
 
     val context = LocalContext.current
-
     var selectIndex by rememberSaveable { mutableStateOf(0) }
     val pageState = rememberPagerState(initialPage = 0)
     val scope = rememberCoroutineScope()

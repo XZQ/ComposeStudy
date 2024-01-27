@@ -1,5 +1,6 @@
 package com.xzq.composestudy.ui.theme
 
+import androidx.compose.material.darkColors
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
@@ -45,3 +46,17 @@ val gradientGreenColors = listOf(green200, green500, green700)
 val gradientRedColors = listOf(orange, tiktokRed)
 val gradientBluePurple = listOf(blue, purple)
 val instagramGradient = listOf(blue, purple, orange, yellow)
+
+
+
+val Green5001 = Color(0xFF1EB980)
+val DarkBlue900 = Color(0xFF26282F)
+
+// Rally is always dark themed.
+val ColorPalette = darkColors(
+    primary = Green5001,
+    surface = DarkBlue900,
+    onSurface = Color.White,
+    background = DarkBlue900,
+    onBackground = Color.White
+)

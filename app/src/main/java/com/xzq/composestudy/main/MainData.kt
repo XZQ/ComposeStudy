@@ -1,4 +1,4 @@
-package com.xzq.composestudy.data
+package com.xzq.composestudy.main
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
