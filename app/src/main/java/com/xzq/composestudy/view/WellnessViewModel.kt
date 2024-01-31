@@ -10,7 +10,7 @@ class WellnessViewModel : ViewModel() {
      * Instead define _tasks and tasks. _tasks is internal and mutable inside the ViewModel.
      * tasks is public and read-only.
      */
-    private val _tasks = List(30) { i -> WellnessTask(i, "Task # $i") }.toMutableStateList()
+    private val _tasks = List(100) { i -> WellnessTask(i, "Task # $i") }.toMutableStateList()
 
     val tasks: List<WellnessTask>
         get() = _tasks

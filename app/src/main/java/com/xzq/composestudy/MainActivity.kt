@@ -36,9 +36,7 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.xzq.composestudy.cupcake.CupcakeApp
 import com.xzq.composestudy.cupcake.ui.StartOrderPreview
-import com.xzq.composestudy.cupcake.ui.theme.CupcakeTheme
 import com.xzq.composestudy.main.iconList
 import com.xzq.composestudy.main.navList
 import com.xzq.composestudy.rally.Overview
@@ -195,7 +193,7 @@ private fun rootCompose() {
                 }
             ) { innerPadding ->
                 when (selectIndex) {
-                    0 -> rootMainPage(innerPadding, onChangeVisible = {})
+                    0 -> rootMainPage(innerPadding, onChangeVisible = {}, openDrawer = {})
                     1 -> rootDiscoverPage(innerPadding)
                     2 -> rootFriendPage(innerPadding)
                     3 -> rootMinePage(innerPadding)

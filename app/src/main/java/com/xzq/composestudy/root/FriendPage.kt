@@ -34,6 +34,7 @@ import kotlin.math.roundToInt
 
 @Composable
 fun rootFriendPage(innerPadding: PaddingValues) {
+
     val context = LocalContext.current
     val srollState = rememberLazyListState()
 
@@ -163,9 +164,9 @@ fun NationalDayItem(
 fun NationalDay(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
 
-        var day by remember { mutableStateOf(7) }
+        var day by remember { mutableIntStateOf(7) }
         var showNotice by remember { mutableStateOf(false) }
-        var count by remember { mutableStateOf(0) }
+        var count by remember { mutableIntStateOf(0) }
 
         if (day < 1) {
             if (count == 0) {

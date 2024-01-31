@@ -2,6 +2,7 @@ package com.xzq.composestudy
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -24,12 +25,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.xzq.composestudy.drawer.AppDrawer
 import com.xzq.composestudy.main.iconList
 import com.xzq.composestudy.main.navList
+import com.xzq.composestudy.navi.NaviGraph
 import kotlinx.coroutines.launch
 
 
@@ -39,10 +44,21 @@ import kotlinx.coroutines.launch
 fun HomePage() {
 
     val context = LocalContext.current
-    var selectIndex by rememberSaveable { mutableStateOf(0) }
-    val pageState = rememberPagerState(initialPage = 0)
-    val scope = rememberCoroutineScope()
+    var selectIndex by rememberSaveable { mutableIntStateOf(0) }
     var visible by remember { mutableStateOf(true) }
+
+    val pageState = rememberPagerState(initialPage = 0)
+    val coroutineScope = rememberCoroutineScope()
+    val navController = rememberNavController()
+    // This top level scaffold contains the app drawer, which needs to be accessible
+    // from multiple screens. An event to open the drawer is passed down to each
+    // screen that needs it.
+    val scaffoldState = rememberScaffoldState()
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route ?: NaviGraph.HOME_ROUTE
+
+    Log.e("TAG", "----    currentRoute=$currentRoute")
 
     val systemUiController = rememberSystemUiController().apply {
         setSystemBarsColor(
@@ -52,6 +68,7 @@ fun HomePage() {
     }
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             if (selectIndex != 0) {
                 CenterAlignedTopAppBar(
@@ -77,6 +94,12 @@ fun HomePage() {
                 Spacer(modifier = Modifier.size(10.dp))
             }
         },
+        drawerContent = {
+            AppDrawer(currentRoute = currentRoute,
+                navigateHome = { navController.navigate(NaviGraph.HOME_ROUTE) },
+                navigateToInterests = { navController.navigate(NaviGraph.INTERESTS_ROUTE) },
+                closeDrawer = { coroutineScope.launch { scaffoldState.drawerState.close() } })
+        },
         bottomBar = {
             AnimatedVisibility(
                 visible = visible,
@@ -95,7 +118,7 @@ fun HomePage() {
                                 .fillMaxHeight()
                                 .clickable {
                                     selectIndex = index
-                                    scope.launch {
+                                    coroutineScope.launch {
                                         pageState.scrollToPage(index)
                                     }
                                 }
@@ -129,6 +152,9 @@ fun HomePage() {
                 modifier = Modifier.fillMaxSize(),
                 userScrollEnabled = visible
             ) { page ->
+
+                val openDrawer: () -> Unit = { coroutineScope.launch { scaffoldState.drawerState.open() } }
+
                 when (page) {
                     0 -> rootMainPage(innerPadding, onChangeVisible = { v ->
                         visible = !v
@@ -136,7 +162,7 @@ fun HomePage() {
                             color = if (visible) Color(0xffEDEDED) else Color(0xff1B1B2B),
                             darkIcons = true,
                         )
-                    })
+                    }, openDrawer = openDrawer)
 
                     1 -> rootDiscoverPage(innerPadding)
                     2 -> rootFriendPage(innerPadding)

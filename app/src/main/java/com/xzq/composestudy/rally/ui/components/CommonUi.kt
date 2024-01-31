@@ -16,7 +16,7 @@ import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -115,7 +115,7 @@ private fun BaseRow(
 
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Icon(
-                imageVector = Icons.Filled.ChevronRight,
+                imageVector = Icons.Filled.AccountBox,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(end = 12.dp)
