@@ -12,20 +12,22 @@ import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.MaterialTheme.typography
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -121,6 +123,26 @@ fun TopAppBarsDemo() {
         }
     )
     Spacer(modifier = Modifier.height(8.dp))
+
+    TopAppBar(
+        elevation = 4.dp,
+        title = { Text("Tesla") },
+        backgroundColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.primary,
+        navigationIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Filled.ArrowBack, contentDescription = null)
+            }
+        }, actions = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Default.Share, contentDescription = null)
+            }
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Filled.Settings, contentDescription = null)
+            }
+        }
+    )
+
 }
 
 @Composable

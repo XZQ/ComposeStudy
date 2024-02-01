@@ -136,7 +136,7 @@ private fun CustomImageChip(
             )
             Text(
                 text = text,
-                style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+                style = typography.bodyMedium,
                 modifier = Modifier.padding(end = 8.dp, top = 8.dp, bottom = 8.dp)
             )
         }
