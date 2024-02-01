@@ -1,9 +1,11 @@
 package com.xzq.composestudy
 
 import android.os.Bundle
+import android.window.SplashScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -20,6 +23,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -33,8 +37,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.xzq.composestudy.cupcake.ui.StartOrderPreview
 import com.xzq.composestudy.main.iconList
@@ -80,8 +82,6 @@ fun ComposeCupcakeThemeUI() {
         StartOrderPreview()
     }
 }
-
-
 @Composable
 fun RallyApp() {
     ProvideWindowInsets {
@@ -105,12 +105,12 @@ fun RallyApp() {
 }
 
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun rootCompose() {
 
-    var selectIndex by remember { mutableStateOf(0) }
-    val pageState = rememberPagerState(initialPage = 0)
+    var selectIndex by remember { mutableIntStateOf(0) }
+    val pageState = rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0f) { 0 }
     val context = LocalContext.current
 
     val scope = rememberCoroutineScope()

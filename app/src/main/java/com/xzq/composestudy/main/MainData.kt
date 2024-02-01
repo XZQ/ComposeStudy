@@ -6,7 +6,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 
-val navList = listOf("首页", "薇薇", "朋友", "我的")
+val navList = listOf("首页", "志强", "朋友", "我的")
 
 val iconList = listOf(
     Icons.Default.Home,
