@@ -27,26 +27,23 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.xzq.composestudy.drawer.AppDrawer
 import com.xzq.composestudy.main.iconList
 import com.xzq.composestudy.main.navList
-import com.xzq.composestudy.navi.NaviGraph
+import com.xzq.composestudy.navigation.NaviGraph
+import com.xzq.composestudy.root.rootMinePage
 import kotlinx.coroutines.launch
 
 
-@OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomePage() {
-
     val context = LocalContext.current
     var selectIndex by rememberSaveable { mutableIntStateOf(0) }
     var visible by remember { mutableStateOf(true) }
-
     val pageState = rememberPagerState(initialPage = 0)
     val coroutineScope = rememberCoroutineScope()
     val navController = rememberNavController()
@@ -54,34 +51,28 @@ fun HomePage() {
     // from multiple screens. An event to open the drawer is passed down to each
     // screen that needs it.
     val scaffoldState = rememberScaffoldState()
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: NaviGraph.HOME_ROUTE
 
     Log.e("TAG", "----    currentRoute=$currentRoute")
 
-    val systemUiController = rememberSystemUiController().apply {
-        setSystemBarsColor(
-            color = Color(0xffEDEDED),
-            darkIcons = false,
-        )
-    }
+    /*  val systemUiController = rememberSystemUiController().apply {
+  //        setSystemBarsColor(
+  //            color = Color(0xffEDEDED),
+  //            darkIcons = false,
+  //        )
+          setStatusBarColor(Color.Transparent, darkIcons = MaterialTheme.colors.isLight)
+      }*/
 
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             if (selectIndex != 0) {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(
-                            navList[selectIndex],
-                            maxLines = 1,
-                            fontSize = 22.sp,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    },
-                    actions = { getCenterAlignedTopAppBarActions(context, selectIndex) },
-
+                CenterAlignedTopAppBar(title = {
+                    Text(
+                        navList[selectIndex], maxLines = 1, fontSize = 22.sp, overflow = TextOverflow.Ellipsis
+                    )
+                }, actions = { getCenterAlignedTopAppBarActions(context, selectIndex) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(
                         containerColor = getDefaultColor(context, selectIndex),
                         scrolledContainerColor = getDefaultColor(context, selectIndex),
@@ -90,8 +81,6 @@ fun HomePage() {
                         actionIconContentColor = getBlack10(context),
                     )
                 )
-            } else {
-                Spacer(modifier = Modifier.size(10.dp))
             }
         },
         drawerContent = {
@@ -111,31 +100,23 @@ fun HomePage() {
                     contentColor = Color(ContextCompat.getColor(context, if (selectIndex > 1) R.color.black else R.color.nav_bg)),
                 ) {
                     navList.forEachIndexed { index, str ->
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight()
-                                .clickable {
-                                    selectIndex = index
-                                    coroutineScope.launch {
-                                        pageState.scrollToPage(index)
-                                    }
+                        Box(contentAlignment = Alignment.Center, modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .clickable {
+                                selectIndex = index
+                                coroutineScope.launch {
+                                    pageState.scrollToPage(index)
                                 }
-                        ) {
+                            }) {
                             Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Bottom
+                                horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom
                             ) {
                                 Icon(
-                                    imageVector = iconList[index],
-                                    contentDescription = null,
-                                    tint = getTintColor(context, index, selectIndex)
+                                    imageVector = iconList[index], contentDescription = null, tint = getTintColor(context, index, selectIndex)
                                 )
                                 Text(
-                                    text = str,
-                                    fontSize = 12.sp,
-                                    color = getTintColor(context, index, selectIndex)
+                                    text = str, fontSize = 12.sp, color = getTintColor(context, index, selectIndex)
                                 )
                             }
                         }
@@ -146,11 +127,7 @@ fun HomePage() {
     ) { innerPadding ->
         Box {
             HorizontalPager(
-                count = 4,
-                state = pageState,
-                contentPadding = PaddingValues(horizontal = 0.dp),
-                modifier = Modifier.fillMaxSize(),
-                userScrollEnabled = visible
+                count = 4, state = pageState, modifier = Modifier.fillMaxSize(), userScrollEnabled = visible
             ) { page ->
 
                 val openDrawer: () -> Unit = { coroutineScope.launch { scaffoldState.drawerState.open() } }
@@ -158,10 +135,10 @@ fun HomePage() {
                 when (page) {
                     0 -> rootMainPage(innerPadding, onChangeVisible = { v ->
                         visible = !v
-                        systemUiController.setSystemBarsColor(
-                            color = if (visible) Color(0xffEDEDED) else Color(0xff1B1B2B),
-                            darkIcons = true,
-                        )
+//                        systemUiController.setSystemBarsColor(
+//                            color = if (visible) Color(0xffEDEDED) else Color(0xff1B1B2B),
+//                            darkIcons = true,
+//                        )
                     }, openDrawer = openDrawer)
 
                     1 -> rootDiscoverPage(innerPadding)
@@ -172,12 +149,11 @@ fun HomePage() {
             LaunchedEffect(pageState) {
                 snapshotFlow { pageState.currentPage }.collect { page ->
                     selectIndex = page
-                    /** 动态设置状态栏颜色 */
                     visible = true
-                    systemUiController.setSystemBarsColor(
-                        color = if (page != 3) Color(0xffEDEDED) else Color.White,
-                        darkIcons = true,
-                    )
+//                    systemUiController.setSystemBarsColor(
+//                        color = if (page != 3) Color(0xffEDEDED) else Color.White,
+//                        darkIcons = true,
+//                    )
                 }
             }
         }
@@ -187,21 +163,14 @@ fun HomePage() {
 @Composable
 private fun getCenterAlignedTopAppBarActions(context: Context, selectIndex: Int) {
     if (selectIndex != 3) {
-        IconButton(
-            onClick = { }) {
+        IconButton(onClick = { }) {
             Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = null,
-                modifier = Modifier.size(30.dp),
-                tint = getBlack10(context)
+                imageVector = Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(30.dp), tint = getBlack10(context)
             )
         }
         IconButton(onClick = { }) {
             Icon(
-                imageVector = Icons.Filled.Close,
-                contentDescription = null,
-                modifier = Modifier.size(25.dp),
-                tint = getBlack10(context)
+                imageVector = Icons.Filled.Close, contentDescription = null, modifier = Modifier.size(25.dp), tint = getBlack10(context)
             )
         }
     }
@@ -217,15 +186,13 @@ private fun getTintColor(context: Context, index: Int, selectIndex: Int) = Color
 
 private fun getDefaultColor(context: Context, selectIndex: Int) = Color(
     ContextCompat.getColor(
-        context,
-        if (selectIndex != 3) R.color.nav_bg else R.color.white
+        context, if (selectIndex != 3) R.color.nav_bg else R.color.white
     )
 )
 
 private fun getBlack10(context: Context) = Color(
     ContextCompat.getColor(
-        context,
-        R.color.black_10
+        context, R.color.black_10
     )
 )
 

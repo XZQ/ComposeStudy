@@ -9,13 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -27,7 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.xzq.composestudy.R
-import com.xzq.composestudy.navi.NaviGraph
+import com.xzq.composestudy.navigation.NaviGraph
 
 
 @Composable
@@ -51,7 +52,7 @@ fun AppDrawer(
             }
         )
         DrawerButton(
-            icon = Icons.Filled.List,
+            icon = Icons.Filled.Add,
             label = "Interests",
             isSelect = currentRoute == NaviGraph.INTERESTS_ROUTE,
             action = {
@@ -82,7 +83,8 @@ fun DrawerButton(icon: ImageVector, label: String, isSelect: Boolean, action: ()
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
-                    imageVector = icon, contentDescription = null,
+                    imageVector = icon,
+                    contentDescription = null,
                     colorFilter = ColorFilter.tint(textIconColor),
                     alpha = imageAlpha
                 )
@@ -101,6 +103,7 @@ fun DrawerButton(icon: ImageVector, label: String, isSelect: Boolean, action: ()
 fun StudyLogo(modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Image(
+            modifier = Modifier.size(22.dp),
             painter = painterResource(id = R.drawable.cupcake),
             contentDescription = null,
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)

@@ -42,4 +42,10 @@
         <item quantity="one">%d cupcake</item>
         <item quantity="other">%d cupcakes</item>
     </plurals>
+
+    <string name="screen_home">首页</string>
+    <string name="screen_discover">小强</string>
+    <string name="screen_friend">朋友</string>
+    <string name="screen_mine">我的</string>
+
 </resources>

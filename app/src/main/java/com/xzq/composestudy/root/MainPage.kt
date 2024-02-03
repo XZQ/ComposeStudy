@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -23,6 +24,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.contentColorFor
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.primarySurface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -41,6 +44,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.ImagePainter.State.Empty.painter
 import com.xzq.composestudy.main.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -55,9 +59,9 @@ fun rootMainPage(
     val context = LocalContext.current
 
     /*** 获取状态栏高度 */
-    val statusBarHeight = LocalDensity.current.run {
-        WindowInsets.statusBars.getTop(this).toDp()
-    }
+//    val statusBarHeight = LocalDensity.current.run {
+//        WindowInsets.statusBars.getTop(this).toDp()
+//    }
     val scrollState = rememberLazyListState()
 
     var offset by remember { mutableFloatStateOf(0f) }
@@ -83,7 +87,7 @@ fun rootMainPage(
                 navigationIcon = {
                     IconButton(onClick = { coroutineScope.launch { openDrawer() } }) {
                         Icon(
-                            painter = painterResource(R.drawable.cupcake),
+                            Icons.Default.Menu,
                             contentDescription = stringResource(R.string.app_name)
                         )
                     }
@@ -105,6 +109,9 @@ fun InsetAwareTopAppBar(
     contentColor: Color = contentColorFor(backgroundColor),
     elevation: Dp = 4.dp
 ) {
+    LocalDensity.current.run {
+        WindowInsets.statusBars.getTop(this).toDp()
+    }
     Surface(
         color = backgroundColor,
         elevation = elevation,

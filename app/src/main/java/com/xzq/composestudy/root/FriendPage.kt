@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
@@ -37,8 +39,13 @@ fun rootFriendPage(innerPadding: PaddingValues) {
 
     val context = LocalContext.current
     val srollState = rememberLazyListState()
+    val statusBarHeight = LocalDensity.current.run { WindowInsets.statusBars.getTop(this).toDp() }
 
-    Surface {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 50.dp  )
+    ) {
         LazyColumn(
             contentPadding = innerPadding,
             state = srollState,
@@ -64,61 +71,61 @@ fun rootFriendPage(innerPadding: PaddingValues) {
             item {
                 ActionTitle(
                     FriendItem(
-                    "直播",
-                    R.mipmap.icon_live,
-                ), context, false,
+                        "直播",
+                        R.mipmap.icon_live,
+                    ), context, false,
                     onClick = {})
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
                 ActionTitle(
                     FriendItem(
-                    "扫一扫",
-                    R.mipmap.icon_scan,
-                ), context, true,
+                        "扫一扫",
+                        R.mipmap.icon_scan,
+                    ), context, true,
                     onClick = {})
             }
             item {
                 ActionTitle(
                     FriendItem(
-                    "摇一摇",
-                    R.mipmap.icon_yao,
-                ), context, true,
-                    onClick = {})
-                divider(thickness = 10.dp, colorId = R.color.nav_bg)
-            }
-            item {
-                ActionTitle(
-                    FriendItem(
-                    "看一看",
-                    R.mipmap.icon_look,
-                ), context, true,
-                    onClick = {})
-            }
-            item {
-                ActionTitle(
-                    FriendItem(
-                    "搜一搜",
-                    R.mipmap.icon_search,
-                ), context, true,
+                        "摇一摇",
+                        R.mipmap.icon_yao,
+                    ), context, true,
                     onClick = {})
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
                 ActionTitle(
                     FriendItem(
-                    "附近",
-                    R.mipmap.icon_near,
-                ), context, false,
+                        "看一看",
+                        R.mipmap.icon_look,
+                    ), context, true,
+                    onClick = {})
+            }
+            item {
+                ActionTitle(
+                    FriendItem(
+                        "搜一搜",
+                        R.mipmap.icon_search,
+                    ), context, true,
                     onClick = {})
                 divider(thickness = 10.dp, colorId = R.color.nav_bg)
             }
             item {
                 ActionTitle(
                     FriendItem(
-                    "小程序",
-                    R.mipmap.icon_applet,
-                ), context, false,
+                        "附近",
+                        R.mipmap.icon_near,
+                    ), context, false,
+                    onClick = {})
+                divider(thickness = 10.dp, colorId = R.color.nav_bg)
+            }
+            item {
+                ActionTitle(
+                    FriendItem(
+                        "小程序",
+                        R.mipmap.icon_applet,
+                    ), context, false,
                     onClick = {})
             }
         }
